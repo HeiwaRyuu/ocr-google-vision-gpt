@@ -3,22 +3,28 @@ from ocr_google_cloud_vision import detect_text
 
 import os
 
+def save_text(file_path, file_extension, data):
+    filename = file_path.split('/')[-1].split('.')[0] + file_extension
+    output_file_path = rf'{os.getcwd()}\results\{filename}'
+    with open(output_file_path, 'w+', encoding='utf-8') as f:
+        f.write(data)
+    return output_file_path
+
 def main():
     for i in range(3):
-        # Extraí o texto usando o Google Vision
+        # Extract text via OCR using Google Vision
         file_path = os.getcwd() + f"/images/joao-teixeira-alves-neto-prontuario_page-000{i+1}.jpg"
         ocr_text = detect_text(file_path)
 
-        # Corrige o texto usando o ChatGPT
-        texto_final = correct_text(ocr_text)
+        # Correct OCR mistakes using ChatGPT
+        final_text = correct_text(ocr_text)
 
-        # Read the text recognition output from the processor
-        filename = file_path.split('/')[-1].split('.')[0] + '.txt'
-        output_file_path = rf'{os.getcwd()}\results\{filename}'
-        with open(output_file_path, 'w+') as f:
-            f.write(texto_final)
+        # Save the raw output in '.txt' and a json version of it
+        save_text(file_path, "_raw.txt", ocr_text)
 
-        print(f"The document has been processed and its contents saved to {output_file_path}")
+        output_file_path = save_text(file_path, ".json", final_text)
+        
+        print(f"The document has been processed and its contents saved to:\n {output_file_path}")
 
 if __name__ == "__main__":
     main()
