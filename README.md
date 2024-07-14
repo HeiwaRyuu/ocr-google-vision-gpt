@@ -1,0 +1,1 @@
+# OCR Pipeline for Handwritten PDF Scanned Documents to JSON Object
