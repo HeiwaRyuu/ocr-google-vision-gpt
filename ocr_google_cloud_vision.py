@@ -25,11 +25,3 @@ def detect_text(path):
     
     full_ocr_text = texts[0]
     return full_ocr_text.description
-
-def main():
-    for i in range(3):
-        path = os.getcwd() + f"/images/joao-teixeira-alves-neto-prontuario_page-000{i+1}.jpg"
-        detect_text(path)
-
-if __name__ == "__main__":
-    main()
