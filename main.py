@@ -11,9 +11,10 @@ def save_text(file_path, file_extension, data):
     return output_file_path
 
 def main():
-    for i in range(3):
+    base_path = os.getcwd() + "/images/images"
+    for file_path in os.listdir(base_path):
+        file_path = base_path+"/"+file_path
         # Extract text via OCR using Google Vision
-        file_path = os.getcwd() + f"/images/joao-teixeira-alves-neto-prontuario_page-000{i+1}.jpg"
         ocr_text = detect_text(file_path)
 
         # Correct OCR mistakes using ChatGPT
